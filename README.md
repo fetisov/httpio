@@ -76,3 +76,45 @@ new chunk of POST data "login"
 new chunk of POST data "password"
 request finished
 ```
+
+# Response generator example (stdout instead the socket)
+```c
+#include <stdio.h>
+#include "httpio.h"
+
+static char out_pool[1024];
+
+int main(int argc, const char **argv)
+{
+    FILE *f;
+    httpo_t *out;
+    http_resp_t resp;
+    char *data;
+    int size;
+    out = httpo_init(out_pool, 1024);
+    http_resp_init(&resp, 200, MIME_TEXT_HTML, RESPF_KEEPALIVE | RESPF_CHUNKED | RESPF_NOCACH);
+    httpo_write_resp(out, &resp);
+    httpo_write_data(out, "first data chunk", 16);
+    httpo_write_data(out, "the second data chunk", 21);
+    httpo_finished(out);
+    httpo_state(out, &data, &size);
+    fwrite(data, 1, size, stdout);
+    return 0;
+}
+```
+
+Example output:
+```http
+HTTP/1.1 200 OK
+Content-Language: en
+Content-Type: text/html
+Connection: keep-alive
+Cache-Control: no-store, no-cache
+Transfer-Encoding: chunked
+
+10
+first data chunk
+15
+the second data chunk
+0
+```
