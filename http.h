@@ -37,7 +37,7 @@ extern "C" {
 #endif
 
 #ifndef HTTP_REQ_MAX_PARAMS
-#define HTTP_REQ_MAX_PARAMS 64
+#define HTTP_REQ_MAX_PARAMS 16
 #endif
 
 #ifndef HTTP_REQ_MAX_ACCEPT

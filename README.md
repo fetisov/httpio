@@ -19,14 +19,14 @@ Generator functions:
 #include <stdio.h>
 #include "httpio.h"
 
-static char in_pool[2048];
+static char in_pool[1024];
 
 int main(int argc, const char **argv)
 {
     FILE *f;
     httpi_t *in;
     f = argc == 2 ? fopen(argv[1], "rb") : stdin;
-    in = httpi_init(in_pool, 2048);
+    in = httpi_init(in_pool, 1024);
     while (1)
     {
         int size;
