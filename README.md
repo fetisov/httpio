@@ -15,7 +15,7 @@ Generator functions:
 - Supports the chunked transfer encoding
 
 # Parser example (stdin instead the socket)
-```
+```c
 #include <stdio.h>
 #include "httpio.h"
 
@@ -58,7 +58,7 @@ int main(int argc, const char **argv)
 }
 ```
 Example input:
-```
+```http
 POST /cgi-bin/login.cgi HTTP/1.1
 Host: www.tutorialspoint.com
 Content-Type: application/x-www-form-urlencoded
